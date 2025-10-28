@@ -13,7 +13,7 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // ciclo de devisao se vai para login ou para menu
         setup()
     }
     
@@ -22,6 +22,7 @@ class SplashViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
         setupConstraints()
+        setupGesture()
     }
     
     private func setupConstraints() {
@@ -33,5 +34,20 @@ class SplashViewController: UIViewController {
         ])
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showLoginBottomSheet))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func showLoginBottomSheet() {
+        let loginBottomSheet = LoginBottomSheetViewController()
+        loginBottomSheet.modalPresentationStyle = .overCurrentContext
+        loginBottomSheet.modalTransitionStyle = .crossDissolve
+        self.present(loginBottomSheet, animated: false) {
+            loginBottomSheet.animateShow()
+        }
     }
 }
