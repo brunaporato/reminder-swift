@@ -32,7 +32,7 @@ class LoginBottomSheetViewController: UIViewController {
             loginView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
         
-        let heightConstraint = loginView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
+        loginView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
     }
     
     private func setupGesture() {

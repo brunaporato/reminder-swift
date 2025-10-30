@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  Reminder
+
+  Created by Bruna Porato on 30/10/25.
+  
+*/
+
+/* MARK: - LOGIN Screen */
+"login.label.title" = "Entre para acessar suas receitas";
+"login.email.placeholder" = "email@example.com";
+"login.password.placeholder" = "*********";
+"login.button.title" = "Entrar";
+"login.loginTextLabel.title" = "Email";
+"login.passwordTextLabel.title" = "Senha";
+
+/* MARK: - HOME Screen */
+
+/* MARK: - RECEIPTS Screen */
+
+/* MARK: - NEWRECEIPT Screen */
