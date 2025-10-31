@@ -10,7 +10,12 @@ import Firebase
 
 class LoginBottomSheetViewModel {
     func doAuth(usernameLogin: String, password: String) {
-        print(usernameLogin, password)
-        // chamar a camada de serviço (useCase.doAuth())
+        Auth.auth().signIn(withEmail: usernameLogin, password: password) { [weak self] authResult, error in
+            if let error = error {
+                print("Authentication failed: \(error)")
+            } else {
+                print(authResult)
+            }
+        }
     }
 }
