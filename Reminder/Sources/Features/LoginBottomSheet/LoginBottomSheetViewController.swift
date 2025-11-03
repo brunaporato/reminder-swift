@@ -8,13 +8,14 @@ import Foundation
 import UIKit
 
 class LoginBottomSheetViewController: UIViewController {
-    let loginView = LoginBottomSheetView()
     let viewModel = LoginBottomSheetViewModel()
+    var contentView: LoginBottomSheetView
     public weak var flowDelegate: LoginBottomSheetFlowDelegate?
     
-    init(flowDelegate: LoginBottomSheetFlowDelegate) {
-        super.init(nibName: nil, bundle: nil)
+    init(contentView: LoginBottomSheetView, flowDelegate: LoginBottomSheetFlowDelegate) {
         self.flowDelegate = flowDelegate
+        self.contentView = contentView
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -24,7 +25,7 @@ class LoginBottomSheetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loginView.delegate = self
+        contentView.delegate = self
         
         setupUI()
         setupGesture()
@@ -32,20 +33,20 @@ class LoginBottomSheetViewController: UIViewController {
     }
     
     private func setupUI() {
-        self.view.addSubview(loginView)
-        loginView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         
         setupConstraints()
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            loginView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            loginView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            loginView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            contentView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
         
-        loginView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
+        contentView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
     }
     
     private func bindViewModel() {
@@ -64,9 +65,9 @@ class LoginBottomSheetViewController: UIViewController {
     
     internal func animateShow(completion: (() -> Void)? = nil) {
         self.view.layoutIfNeeded()
-        loginView.transform = CGAffineTransform(translationX: 0, y: loginView.frame.height)
+        contentView.transform = CGAffineTransform(translationX: 0, y: contentView.frame.height)
         UIView.animate(withDuration: 0.3, animations: {
-            self.loginView.transform = .identity
+            self.contentView.transform = .identity
             self.view.layoutIfNeeded()
         }) { _ in
             completion?()
