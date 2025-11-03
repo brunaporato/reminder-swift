@@ -8,6 +8,7 @@ import Foundation
 import UIKit
 
 class LoginBottomSheetViewController: UIViewController {
+    var mainNavigation: UINavigationController?
     let loginView = LoginBottomSheetView()
     let viewModel = LoginBottomSheetViewModel()
     
@@ -18,6 +19,7 @@ class LoginBottomSheetViewController: UIViewController {
         
         setupUI()
         setupGesture()
+        bindViewModel()
     }
     
     private func setupUI() {
@@ -35,6 +37,15 @@ class LoginBottomSheetViewController: UIViewController {
         ])
         
         loginView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
+    }
+    
+    private func bindViewModel() {
+        viewModel.successResult = { [weak self] in
+            let viewController = UIViewController()
+            viewController.view.backgroundColor = .systemBlue
+            self?.dismiss(animated: true)
+            self?.mainNavigation?.pushViewController(viewController, animated: true)
+        }
     }
     
     private func setupGesture() {
