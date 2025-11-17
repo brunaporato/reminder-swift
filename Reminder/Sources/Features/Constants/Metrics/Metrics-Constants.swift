@@ -18,4 +18,7 @@ public struct Metrics {
     
     static let buttonSize: CGFloat = 56
     static let inputSize: CGFloat = 56
+    
+    static let profileImageSize: CGFloat = 68
+    static let backgroundProfileSize: CGFloat = 240
 }
