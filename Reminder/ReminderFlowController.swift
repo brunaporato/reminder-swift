@@ -58,6 +58,4 @@ extension ReminderFlowController: HomeFlowDelegate {
         self.navigationController?.popViewController(animated: true)
         self.showLoginBottomSheet()
     }
-    
-    
 }

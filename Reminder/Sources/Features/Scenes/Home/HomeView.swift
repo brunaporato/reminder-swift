@@ -8,6 +8,8 @@ import Foundation
 import UIKit
 
 class HomeView: UIView {
+    weak public var delegate: (HomeViewDelegate)?
+    
     let profileBackground: UIView = {
         let view = UIView()
         view.backgroundColor = Colors.gray600
@@ -28,7 +30,9 @@ class HomeView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = Metrics.huge
+        imageView.isUserInteractionEnabled = true
+        imageView.image = UIImage(named: "user")
+        imageView.layer.cornerRadius = Metrics.medium
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -81,11 +85,12 @@ class HomeView: UIView {
         addSubview(contentBackground)
         contentBackground.addSubview(feedBackButton)
         setupConstraints()
+        setupImageGesture()
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            profileBackground.topAnchor.constraint(equalTo: topAnchor),
+            profileBackground.topAnchor.constraint(equalTo: topAnchor, constant: Metrics.medium),
             profileBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
             profileBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
             profileBackground.heightAnchor.constraint(equalToConstant: Metrics.backgroundProfileSize),
@@ -111,5 +116,15 @@ class HomeView: UIView {
             feedBackButton.trailingAnchor.constraint(equalTo: contentBackground.trailingAnchor, constant: -Metrics.medium),
             feedBackButton.heightAnchor.constraint(equalToConstant: Metrics.buttonSize)
         ])
+    }
+    
+    private func setupImageGesture() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+        profileImage.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc
+    private func profileImageTapped() {
+        delegate?.didTapProfileImage()
     }
 }
