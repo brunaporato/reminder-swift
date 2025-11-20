@@ -56,13 +56,16 @@ class HomeViewController: UIViewController {
     @objc
     private func logoutAction() {
         UserDefaultsManager.removeUser()
-        UserDefaultsManager.removeUserName()
         self.flowDelegate.logOut()
     }
     
     private func checkForExistingData() {
         if UserDefaultsManager.loadUser() != nil {
             contentView.nameTextField.text = UserDefaultsManager.loadUserName()
+        }
+        
+        if let savedImage = UserDefaultsManager.loadProfileImage() {
+            contentView.profileImage.image = savedImage
         }
     }
 }
@@ -86,8 +89,10 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[.editedImage] as? UIImage {
             contentView.profileImage.image = editedImage
+            UserDefaultsManager.saveProfileImage(image: editedImage)
         } else if let originalImage = info[.originalImage] as? UIImage {
             contentView.profileImage.image = originalImage
+            UserDefaultsManager.saveProfileImage(image: originalImage)
         }
         
         dismiss(animated: true)
