@@ -56,6 +56,20 @@ class HomeView: UIView {
         return textField
     }()
     
+    let myPrescriptionButton: ButtonHomeView = {
+        let button = ButtonHomeView(icon: UIImage(named: "Paper")!,
+                                   title: "Minhas receitas",
+                                   description: "Acompanhe os medicamentos e gerencie lembretes")
+        return button
+    }()
+    
+    let newPrescriptionButton: ButtonHomeView = {
+        let button = ButtonHomeView(icon: UIImage(named: "pills")!,
+                                    title: "Nova receita",
+                                    description: "Acompanhe os medicamentos e gerencie lembretes")
+        return button
+    }()
+    
     let feedBackButton: UIButton = {
         let button = UIButton()
         button.setTitle("home.feedback.button.title".localized, for: .normal)
@@ -85,7 +99,10 @@ class HomeView: UIView {
         profileBackground.addSubview(nameTextField)
         
         addSubview(contentBackground)
+        contentBackground.addSubview(myPrescriptionButton)
+        contentBackground.addSubview(newPrescriptionButton)
         contentBackground.addSubview(feedBackButton)
+        
         setupConstraints()
         setupImageGesture()
     }
@@ -112,6 +129,16 @@ class HomeView: UIView {
             contentBackground.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentBackground.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            myPrescriptionButton.topAnchor.constraint(equalTo: contentBackground.topAnchor, constant: Metrics.huge),
+            myPrescriptionButton.leadingAnchor.constraint(equalTo: contentBackground.leadingAnchor, constant: Metrics.medium),
+            myPrescriptionButton.trailingAnchor.constraint(equalTo: contentBackground.trailingAnchor, constant: -Metrics.medium),
+            myPrescriptionButton.heightAnchor.constraint(equalToConstant: 112),
+            
+            newPrescriptionButton.topAnchor.constraint(equalTo: myPrescriptionButton.bottomAnchor, constant: Metrics.medier),
+            newPrescriptionButton.leadingAnchor.constraint(equalTo: contentBackground.leadingAnchor, constant: Metrics.medium),
+            newPrescriptionButton.trailingAnchor.constraint(equalTo: contentBackground.trailingAnchor, constant: -Metrics.medium),
+            newPrescriptionButton.heightAnchor.constraint(equalToConstant: 112),
             
             feedBackButton.bottomAnchor.constraint(equalTo: contentBackground.bottomAnchor, constant: -Metrics.medium),
             feedBackButton.leadingAnchor.constraint(equalTo: contentBackground.leadingAnchor, constant: Metrics.medium),
