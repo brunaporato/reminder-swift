@@ -27,6 +27,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setup()
         setupNavigationBar()
+        setupActionForNewReceipt()
         checkForExistingData()
     }
     
@@ -41,6 +42,12 @@ class HomeViewController: UIViewController {
         logoutButton.tintColor = Colors.redBase
         
         navigationItem.rightBarButtonItem = logoutButton
+    }
+    
+    private func setupActionForNewReceipt() {
+        contentView.newPrescriptionButton.tapAction = { [weak self] in
+            self?.didTapNewPrescriptionButton()
+        }
     }
     
     private func setup() {
@@ -74,6 +81,10 @@ class HomeViewController: UIViewController {
 extension HomeViewController: HomeViewDelegate {
     func didTapProfileImage() {
         selectProfileImage()
+    }
+    
+    func didTapNewPrescriptionButton() {
+        flowDelegate.navigateToRecipes()
     }
 }
 

@@ -35,6 +35,10 @@ class NewReceiptViewController: UIViewController {
     }
     
     private func setupActions() {
-        
+        newReceiptView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
