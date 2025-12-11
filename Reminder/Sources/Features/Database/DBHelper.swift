@@ -30,15 +30,15 @@ class DBHelper {
     }
     
     private func createTable() {
-        let createTableQuery = """
-            CREATE TABLE IF NOT EXISTS Receipts {
-                id INTERGER PRIMARY KEY AUTOINCREMENT,
-                medicine TEXT,
-                time TEXT,
-                recurrency TEXT,
-                takenNow INTEGER
-            };
-            """
+        let createTableQuery =  """
+        CREATE TABLE IF NOT EXISTS Receipts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            medicine TEXT,
+            time TEXT,
+            recurrency TEXT,
+            takenNow INTEGER
+        );
+        """
         
         var statement: OpaquePointer?
         
@@ -56,11 +56,7 @@ class DBHelper {
     }
     
     func insertReceipt(medicine: String, time: String, recurrency: String, takenNow: Bool) {
-        let insertQuery = """
-            INSERT INTO
-            Receipts (medicine, time, recurrency, takenNow)
-            VALUES (?, ?, ?, ?);
-            """
+        let insertQuery = "INSERT INTO Receipts (medicine, time, recurrency, takenNow) VALUES (?, ?, ?, ?);"
         var statement: OpaquePointer?
         
         if sqlite3_prepare_v2(db, insertQuery, -1, &statement, nil) == SQLITE_OK {

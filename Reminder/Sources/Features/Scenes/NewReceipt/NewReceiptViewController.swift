@@ -10,6 +10,7 @@ import UIKit
 
 class NewReceiptViewController: UIViewController {
     private let newReceiptView = NewReceiptView()
+    private let viewModel = NewReceiptViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +37,24 @@ class NewReceiptViewController: UIViewController {
     
     private func setupActions() {
         newReceiptView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        newReceiptView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
     
     @objc private func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func addButtonTapped() {
+        let medicine = newReceiptView.medicineInput.getText()
+        let time = newReceiptView.timeInput.getText()
+        let recurrency = newReceiptView.recurrencyInput.getText()
+        let takenNow = false
+        
+        viewModel.addReceipt(medicine: medicine,
+                             time: time,
+                             recurrency: recurrency,
+                             takenNow: takenNow)
+        
+        print("receita \(medicine) adicionada")
     }
 }
