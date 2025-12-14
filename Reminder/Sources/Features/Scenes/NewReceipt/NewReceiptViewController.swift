@@ -50,6 +50,14 @@ class NewReceiptViewController: UIViewController {
         let recurrency = newReceiptView.recurrencyInput.getText()
         let takenNow = false
         
+        if medicine.isEmpty || time.isEmpty || recurrency.isEmpty {
+            let alert = UIAlertController(title: "Erro", message: "É necessário preencher todos os campos para adicionar uma nova receita", preferredStyle: .alert)
+            let closeAlert = UIAlertAction(title: "Ok", style: .cancel)
+            alert.addAction(closeAlert)
+            self.present(alert, animated: true)
+            return
+        }
+        
         viewModel.addReceipt(medicine: medicine,
                              time: time,
                              recurrency: recurrency,
