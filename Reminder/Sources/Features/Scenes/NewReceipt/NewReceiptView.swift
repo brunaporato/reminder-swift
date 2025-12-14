@@ -100,6 +100,8 @@ class NewReceiptView: UIView {
         setupTimeInput()
         setupRecurrencyInput()
         setupConstraints()
+        setupObservers()
+        validateInputs()
     }
 
     private func setupConstraints() {
@@ -183,6 +185,25 @@ class NewReceiptView: UIView {
         let selectedRow = recurrencyPicker.selectedRow(inComponent: 0)
         recurrencyInput.textField.text = recurrencyOptions[selectedRow]
         recurrencyInput.textField.resignFirstResponder()
+    }
+    
+    private func validateInputs() {
+        let isMedicineFilled = !(medicineInput.textField.text ?? "").isEmpty
+        let isTimeFilled = !(timeInput.textField.text ?? "").isEmpty
+        let isRecurrencyFilled = !(recurrencyInput.textField.text ?? "").isEmpty
+        
+        addButton.isEnabled = isMedicineFilled && isTimeFilled && isRecurrencyFilled
+        addButton.backgroundColor = addButton.isEnabled ? Colors.redBase : Colors.gray500
+    }
+    
+    private func setupObservers() {
+        medicineInput.textField.addTarget(self, action: #selector(inputDidChange), for: .editingChanged)
+        timeInput.textField.addTarget(self, action: #selector(inputDidChange), for: .allEditingEvents)
+        recurrencyInput.textField.addTarget(self, action: #selector(inputDidChange), for: .allEditingEvents)
+    }
+    
+    @objc private func inputDidChange() {
+        validateInputs()
     }
 }
 
