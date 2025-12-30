@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
         setup()
         setupNavigationBar()
         setupActionForNewReceipt()
+        setupActionForMyReceipts()
         checkForExistingData()
     }
     
@@ -47,6 +48,12 @@ class HomeViewController: UIViewController {
     private func setupActionForNewReceipt() {
         contentView.newPrescriptionButton.tapAction = { [weak self] in
             self?.didTapNewPrescriptionButton()
+        }
+    }
+    
+    private func setupActionForMyReceipts() {
+        contentView.myPrescriptionButton.tapAction = { [weak self] in
+            self?.didTapMyReceiptsButton()
         }
     }
     
@@ -83,8 +90,12 @@ extension HomeViewController: HomeViewDelegate {
         selectProfileImage()
     }
     
+    func didTapMyReceiptsButton() {
+        flowDelegate.navigateToMyReceipts()
+    }
+    
     func didTapNewPrescriptionButton() {
-        flowDelegate.navigateToRecipes()
+        flowDelegate.navigateToNewReceipts()
     }
 }
 
