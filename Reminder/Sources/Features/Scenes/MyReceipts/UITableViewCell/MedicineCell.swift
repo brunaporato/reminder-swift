@@ -53,7 +53,7 @@ class MedicineCell: UITableViewCell {
     }()
     
     private let watchIcon: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "watch"))
+        let imageView = UIImageView(image: UIImage(named: "clock"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -107,7 +107,7 @@ class MedicineCell: UITableViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Metrics.medier),
             
 //            timeBackgroundView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Metrics.small),
-            timeBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Metrics.medier),
+            timeBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Metrics.small),
             timeBackgroundView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             timeBackgroundView.heightAnchor.constraint(equalToConstant: 28),
             
