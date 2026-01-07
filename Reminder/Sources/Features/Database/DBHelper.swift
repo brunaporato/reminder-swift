@@ -76,4 +76,25 @@ class DBHelper {
         
         sqlite3_finalize(statement)
     }
+    
+    func fetchReceipts() -> [Medicine] {
+        let fetchQuery = "SELECT medicine, time, recurrency FROM Receipts"
+        var statement: OpaquePointer?
+        var receipts: [Medicine] = []
+        
+        if sqlite3_prepare(db, fetchQuery, -1, &statement, nil) == SQLITE_OK {
+            while sqlite3_step(statement) == SQLITE_ROW {
+                let medicine = String(cString: sqlite3_column_text(statement, 0))
+                let time = String(cString: sqlite3_column_text(statement, 1))
+                let recurrency = String(cString: sqlite3_column_text(statement, 2))
+                receipts.append(Medicine(medicine: medicine, time: time, recurrency: recurrency))
+            }
+        } else {
+            print("SELECT statement failed")
+        }
+        
+        sqlite3_finalize(statement)
+        
+        return receipts
+    }
 }

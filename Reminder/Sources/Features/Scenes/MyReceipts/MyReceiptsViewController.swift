@@ -11,21 +11,10 @@ import UIKit
 class MyReceiptsViewController: UIViewController {
     let contentView: MyReceiptsView
     weak var flowDelegate: MyReceiptsFlowDelegate?
+    let viewModel = MyReceiptsViewModel()
     
-    private let mockMedicines = [
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        ("Aspirina", "09:00", "8 em 8 horas"),
-        ("Swift", "14:00", "2 em 2 horas"),
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        ("Buscopam", "13:00", "2 em 2 horas"),
-        
-    ]
+    private var medicines: [Medicine] = []
+
     
     init(contentView: MyReceiptsView, flowDelegate: MyReceiptsFlowDelegate) {
         self.contentView = contentView
@@ -41,6 +30,7 @@ class MyReceiptsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        loadData()
         setupTableView()
     }
     
@@ -68,12 +58,16 @@ class MyReceiptsViewController: UIViewController {
         contentView.tableView.register(MedicineCell.self, forCellReuseIdentifier: MedicineCell.identifier)
         contentView.tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
     }
+    
+    private func loadData() {
+        medicines = viewModel.fetchData()
+    }
 }
 
 extension MyReceiptsViewController: UITableViewDelegate, UITableViewDataSource {
     // DELEGATE
     func numberOfSections(in tableView: UITableView) -> Int {
-        return mockMedicines.count
+        return medicines.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -97,8 +91,8 @@ extension MyReceiptsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MedicineCell.identifier, for: indexPath) as! MedicineCell
-        let medicine = mockMedicines[indexPath.section]
-        cell.configure(title: medicine.0, time: medicine.1, recurrency: medicine.2)
+        let medicine = medicines[indexPath.section]
+        cell.configure(title: medicine.medicine, time: medicine.time, recurrency: medicine.recurrency)
         return cell
     }
     
